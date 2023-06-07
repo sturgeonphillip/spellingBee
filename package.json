@@ -1,0 +1,20 @@
+{
+  "name": "spellingbee",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crawlee": "^3.3.3",
+    "playwright": "^1.34.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.34.3"
+  }
+}
