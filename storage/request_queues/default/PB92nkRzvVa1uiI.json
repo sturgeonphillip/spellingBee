@@ -1,9 +1,0 @@
-{
-	"id": "PB92nkRzvVa1uiI",
-	"json": "{\"id\":\"PB92nkRzvVa1uiI\",\"url\":\"https://www.nytimes.com/2023/06/03/crosswords/spelling-bee-forum.html\",\"loadedUrl\":\"https://www.nytimes.com/2023/06/03/crosswords/spelling-bee-forum.html\",\"uniqueKey\":\"https://www.nytimes.com/2023/06/03/crosswords/spelling-bee-forum.html\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2023-06-07T16:27:26.561Z\"}",
-	"method": "GET",
-	"orderNo": null,
-	"retryCount": 0,
-	"uniqueKey": "https://www.nytimes.com/2023/06/03/crosswords/spelling-bee-forum.html",
-	"url": "https://www.nytimes.com/2023/06/03/crosswords/spelling-bee-forum.html"
-}
