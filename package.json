@@ -5,7 +5,10 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx}\"",
+    "lint": "eslint \"*/*.{js,jsx}\"",
+    "lint:debug": "eslint --ignore-path .gitignore --debug \"*/*.{js,jsx}\""
   },
   "keywords": [],
   "author": "Phillip Sturgeon",
@@ -16,6 +19,13 @@
     "playwright": "^1.34.3"
   },
   "devDependencies": {
-    "@playwright/test": "^1.34.3"
+    "@playwright/test": "^1.34.3",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.8"
   }
 }

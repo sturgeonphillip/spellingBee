@@ -1,5 +1,5 @@
 // create an array of url strings for each day/month
-function createMonth (month, days) {
+function createMonth(month, days) {
   const monthLinks = [];
   let curr = 1;
 
@@ -35,17 +35,16 @@ const createCalendar = () => {
         days = 30;
       default:
         days = 31;
-    }    
+    }
     // add newly created month of link arrays to calendar
-    calendar.set(month, createMonth(month, days))
+    calendar.set(month, createMonth(month, days));
   }
 
   return calendar;
 };
 
-
 const calendar = createCalendar();
-console.log('calendar', calendar.get('11'));
+console.log("calendar", calendar.get("11"));
 
 //  https://www.nytimes.com/2023/05/30/crosswords/spelling-bee-forum.html
 // `https://www.nytimes.com/${year}/${month}/${day}/crosswords/spelling-bee-form.html`;

@@ -1,14 +1,16 @@
 import { chromium } from "playwright";
 
 const browser = await chromium.launch({
-  headless: false
+  headless: false,
 });
 
 const page = await browser.newPage({
-  bypassCSP: true
+  bypassCSP: true,
 });
 
-await page.goto("https://www.nytimes.com/2023/05/30/crosswords/spelling-bee-forum.html");
+await page.goto(
+  "https://www.nytimes.com/2023/05/30/crosswords/spelling-bee-forum.html"
+);
 
 // await page.click("text=TUESDAY");
 
@@ -25,31 +27,22 @@ await page.waitForFunction(() => {
   console.log("CONTENT");
   // console.log(content);
   // return content;
-
 });
 
 const letters = await page.$$eval("p.content", (p) => {
-  
   return p.map((el) => {
     // const centerLetter = el.querySelectorAll("div.interactive-body>div>p>span").innerHtml()
-    
+
     // div.interactive-body>div>p>span
     const data = el.querySelectorAll("div.interactive-body>div>p");
     return data.toString();
-    
-    
-  })
+  });
 });
 
 console.log(letters);
 
-
-
-
-
 await page.waitForTimeout(3000);
 await browser.close();
-
 
 // const styles = {
 //   "color": "#333",

@@ -1,45 +1,36 @@
-import fs from 'fs';
+import fs from "fs";
 import raw from "./storage/key_value_stores/default/bee-june032023.json" assert { type: "json" };
 const data = raw[0];
 
 const letters = data.letters;
-const all = data.letters.all.replace(/\s+/g, '');
+const all = data.letters.all.replace(/\s+/g, "");
 const words = data.words;
 const twoLetterList = data.twoLetterList;
 const table = data.table[0]; //split(/\n\s+/g);
 const workTable = data.table[0].split(/\n\s+/g);
-console.log('able', workTable);
+console.log("able", workTable);
 
 // May 30, 2023 table as a string
 // 456789Σa:12511-10c:4311-110e:11-1--3i:--1---1p:3211--7t:121---4v:1-2---3Σ:11101141138 CAEIPTV
 
-
-function createObj (data, all) {
+function createObj(data, all) {
   const grid = {};
   const sigma = String.fromCharCode(931);
 
   for (let key of all) {
-
     grid[key] = {};
   }
   let j = data.indexOf(sigma) - 1;
 
   for (let i = 0; i < data.length; i++) {
-
-
     if (data[i].match(/[a-zA-Z]\:+/g)) {
-
     }
     j++;
   }
 }
 
-  
-
 const obj = createObj(table, all);
 // console.log(obj);
-
-
 
 // fs.writeFile('table.js', table, (err) => {
 //   if (err) {
@@ -48,7 +39,6 @@ const obj = createObj(table, all);
 //   }
 
 // });
-
 
 /**
  const inputArray = [
@@ -67,15 +57,14 @@ const obj = createObj(table, all);
 const organized = {
   a: { 4: 5, 5: 2, 6: 5, 7: 1, 8: 1, 9: 0, Σ: 10 },
   c: { 4: 4, 5: 3, 6: 1, 7: 1, 8: 0, 9: 1, Σ: 10 },
-  e: { 4: 1, 5: 1, 6: 0, 7: 1, 8: 0, 9: 0, Σ: 3, },
+  e: { 4: 1, 5: 1, 6: 0, 7: 1, 8: 0, 9: 0, Σ: 3 },
   i: { 4: 0, 5: 0, 6: 1, 7: 0, 8: 0, 9: 0, Σ: 0 },
   p: { 4: 3, 5: 2, 6: 1, 7: 1, 8: 0, 9: 0, Σ: 7 },
   t: { 4: 1, 5: 2, 6: 1, 7: 0, 8: 0, 9: 0, Σ: 4 },
   v: { 4: 1, 5: 0, 6: 2, 7: 0, 8: 0, 9: 0, Σ: 3 },
-  Σ: { 4: 11, 5: 10, 6: 11, 7: 4, 8: 1, 9: 1, Σ: 38 }
+  Σ: { 4: 11, 5: 10, 6: 11, 7: 4, 8: 1, 9: 1, Σ: 38 },
   // ...
 };
-
 
 /***
 i: 0 CAEIPTVΣ C
