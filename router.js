@@ -1,4 +1,9 @@
-import { createPlaywrightRouter, Dataset, Request } from "crawlee";
+import {
+  createPlaywrightRouter,
+  // Dataset,
+  // Request,
+  // RequestQueue,
+} from "crawlee";
 
 export const router = createPlaywrightRouter();
 
@@ -8,9 +13,9 @@ router.use(async ({ page }) => {
 });
 
 router.addDefaultHandler(async ({ page, crawler }) => {
-  // do something
-  // create request queue
-  // get urls from database (?)
-  // where should I store data?
-  // operate the request currently in `./index.js` on all links.
+  // urls from a request queue
+  // parse data, format for frontend, store to db
+  // operate the request currently in `./index.js` on all links
 });
+
+await crawler.run();

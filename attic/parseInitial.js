@@ -1,44 +1,6 @@
-import fs from "fs";
-import raw from "./storage/key_value_stores/default/bee-june032023.json" assert { type: "json" };
-const data = raw[0];
-
-const letters = data.letters;
-const all = data.letters.all.replace(/\s+/g, "");
-const words = data.words;
-const twoLetterList = data.twoLetterList;
-const table = data.table[0]; //split(/\n\s+/g);
-const workTable = data.table[0].split(/\n\s+/g);
-console.log("able", workTable);
-
-// May 30, 2023 table as a string
+// May 30, 2023 table
+// as a string
 // 456789Σa:12511-10c:4311-110e:11-1--3i:--1---1p:3211--7t:121---4v:1-2---3Σ:11101141138 CAEIPTV
-
-function createObj(data, all) {
-  const grid = {};
-  const sigma = String.fromCharCode(931);
-
-  for (let key of all) {
-    grid[key] = {};
-  }
-  let j = data.indexOf(sigma) - 1;
-
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].match(/[a-zA-Z]\:+/g)) {
-    }
-    j++;
-  }
-}
-
-const obj = createObj(table, all);
-// console.log(obj);
-
-// fs.writeFile('table.js', table, (err) => {
-//   if (err) {
-
-//     throw err;
-//   }
-
-// });
 
 /**
  const inputArray = [

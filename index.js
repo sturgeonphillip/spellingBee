@@ -41,7 +41,7 @@ export const january = [
 Configuration.set("headless", false);
 
 const crawler = new PlaywrightCrawler({
-  async requestHandler({ request, page, log }) {
+  async requestHandler({ request, page }) {
     const all = await page.locator("p.content").nth(1).innerText();
     const letterArray = all.split(" ");
     const bold = letterArray[0];

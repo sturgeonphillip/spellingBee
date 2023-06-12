@@ -33,6 +33,7 @@ const createCalendar = () => {
       case 9:
       case 11:
         days = 30;
+        break;
       default:
         days = 31;
     }
