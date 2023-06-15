@@ -5,7 +5,7 @@ function parseTableObject(str) {
   // instantiate new object
   const table = {};
 
-  console.log(typeof rawTableString);
+  // console.log(typeof rawTableString);
   // split string into arrays
   const arr = str.split("\n");
 
@@ -51,7 +51,7 @@ function pairLengthQuantity(wordLength, quantityAtLength) {
   return letterObject;
 }
 
-// const spellingBeeGrid = parseTableObject(rawTableString);
+const spellingBeeGrid = parseTableObject(rawTableString);
 // console.log("FINAL:", spellingBeeGrid);
 
 // final object = {letter: { length: quantity }}

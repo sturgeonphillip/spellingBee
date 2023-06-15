@@ -9,7 +9,6 @@ export const router = createPlaywrightRouter();
 
 router.use(async ({ page }) => {
   const title = await page.title();
-  console.log(title);
 });
 
 router.addDefaultHandler(async ({ page, crawler }) => {

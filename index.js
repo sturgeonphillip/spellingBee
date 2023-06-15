@@ -1,44 +1,9 @@
-import { PlaywrightCrawler, Request, Dataset, Configuration } from "crawlee";
-// import fs from "fs";
-import parseTableObject from "./parseTableObject.js";
-import parsePointTotals from "./parsePointTotals.js";
-import parseTwoLetters from "./parseTwoLetterList.js";
+import fs from "fs";
 
-export const january = [
-  "https://www.nytimes.com/2023/01/01/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/02/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/03/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/04/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/05/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/06/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/07/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/08/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/09/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/10/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/11/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/12/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/13/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/14/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/15/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/16/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/17/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/18/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/19/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/20/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/21/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/22/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/23/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/24/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/25/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/26/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/27/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/28/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/29/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/30/crosswords/spelling-bee-forum.html",
-  "https://www.nytimes.com/2023/01/31/crosswords/spelling-bee-forum.html",
-];
-
-Configuration.set("headless", false);
+import { PlaywrightCrawler, Request, Dataset } from "crawlee";
+import parseTableObject from "./parsers/tableObject.js";
+import parsePointTotals from "./parsers/pointTotals.js";
+import parseTwoLetters from "./parsers/twoLetterList.js";
 
 const crawler = new PlaywrightCrawler({
   async requestHandler({ request, page }) {
@@ -61,14 +26,17 @@ const crawler = new PlaywrightCrawler({
       .locator("span")
       .allInnerTexts();
 
-    const tableData = await page.locator("table").allInnerTexts();
-    const table = parseTableObject(tableData[0]);
-    // console.log("TD1", typeof tableData1[0], tableData1[0]);
-    //   const tableData2 = (await page.locator('table').allTextContents()).concat();
-    // console.log("TD2", tableData2);
+    // const tableData = await page.locator("table").allInnerTexts();
 
-    // const table = parseTableObject(tableData);
+    // *******************************
 
+    const tableDataE = await page.locator("table").innerText();
+    console.log("TABLE DATA E", tableDataE);
+    // const dataContent = JSON.parse(tableDataE);
+    // console.log(dataContent);
+    await fs.writeFile("tableDataE", JSON.stringify(tableDataE, null, 2));
+
+    // *******************************
     const dailyBeeData = {
       letters: {
         all,
@@ -77,7 +45,7 @@ const crawler = new PlaywrightCrawler({
       },
       points: parsePointTotals(words),
       twoLetterList: parseTwoLetters(twoLetterList),
-      table: parseTableObject(tableData),
+      table: tableData,
     };
 
     await Dataset.pushData(dailyBeeData);

@@ -37,6 +37,7 @@ const createCalendar = () => {
       default:
         days = 31;
     }
+    console.log("m:", month, "d:", days);
     // add newly created month of link arrays to calendar
     calendar.set(month, createMonth(month, days));
   }
@@ -45,7 +46,8 @@ const createCalendar = () => {
 };
 
 const calendar = createCalendar();
-console.log("calendar", calendar.get("11"));
+
+console.log(calendar);
 
 //  https://www.nytimes.com/2023/05/30/crosswords/spelling-bee-forum.html
 // `https://www.nytimes.com/${year}/${month}/${day}/crosswords/spelling-bee-form.html`;

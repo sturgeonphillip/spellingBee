@@ -25,8 +25,6 @@ function parseTwoLetters(arr) {
   return core;
 }
 
-console.log(parseTwoLetters(example));
-
 function parseTwoAlt(arr) {
   const core = {};
 
@@ -44,7 +42,5 @@ function parseTwoAlt(arr) {
 
   return core;
 }
-
-console.log(parseTwoAlt(example));
 
 export default parseTwoLetters;
