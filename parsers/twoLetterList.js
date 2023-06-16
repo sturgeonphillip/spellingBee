@@ -1,15 +1,3 @@
-//  	"AB-1 AI-1 AR-4 AT-2 AU-1\n",
-// 		"BA-6 BR-5 BU-2\n",
-// 		"RA-6\n",
-// 		"TA-6 TI-2 TR-3 TU-1\n"
-
-const example = [
-  "AB-1 AI-1 AR-4 AT-2 AU-1\n",
-  "BA-6 BR-5 BU-2\n",
-  "RA-6\n",
-  "TA-6 TI-2 TR-3 TU-1\n",
-];
-
 function parseTwoLetters(arr) {
   const core = {};
 
@@ -25,7 +13,9 @@ function parseTwoLetters(arr) {
   return core;
 }
 
-function parseTwoAlt(arr) {
+export default parseTwoLetters;
+
+function parseTwoLettersAlt(arr) {
   const core = {};
 
   arr = arr.map((x) => x.replace(/\n+/g, ""));
@@ -42,5 +32,3 @@ function parseTwoAlt(arr) {
 
   return core;
 }
-
-export default parseTwoLetters;
