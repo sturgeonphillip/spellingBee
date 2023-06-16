@@ -1,11 +1,7 @@
 import { readFile, writeFile, access, stat, mkdir } from "fs/promises";
 import { join } from "path";
 
-// const monthStr = "october";
-// const directoryPath = monthStr.toLowerCase();
-// const fileName = join(monthStr.toLowerCase(), "dates.json");
-
-async function updateFile(directory, fileName) {
+async function writeDataToFile(directory, fileName, dataToWrite) {
   try {
     // check if directory exists
     await stat(directory);
@@ -35,23 +31,28 @@ async function updateFile(directory, fileName) {
 
   // add k:v pairs for each day of the month
   for (let i = 1; i <= 31; i++) {
-    data[i] = i.toString();
+    data[i] = parseInt(i);
   }
+// console.log('DATA', typeof data, data);
+  // // data to write to file
+  for (let key in data) {
+    let x = data[key];
+    data[key] = dataToWrite(x);
+  }
+  
 
   // write the updated data back to the file
   await writeFile(fileName, JSON.stringify(data, null, 2));
 }
 
-const monthStr = "october";
-const directoryPath = monthStr.toLowerCase();
-const fileName = join(monthStr.toLowerCase(), "dates.json");
-
-function formatter(directoryPath, fileName) {
+function builder(directoryPath, fileName, dataToWrite) {
   const folder = directoryPath.toLowerCase();
-  const file = join(folder, `${fileName}.json`);
-  return updateFile(folder, file);
+  const file = join(folder, `${fileName.toLowerCase()}.json`);
+  return writeDataToFile(folder, file, dataToWrite);
 }
 
-// updateFile(directoryPath, fileName);
-formatter("dogs", "areBest");
-export { updateFile };
+const squares = (x) => parseInt(x) ** 2;
+
+builder('squareDirectory', 'squares', squares);
+
+// export { builder };

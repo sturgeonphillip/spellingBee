@@ -48,7 +48,8 @@ const crawler = new PlaywrightCrawler({
       table: tableData,
     };
 
-    await Dataset.pushData(dailyBeeData);
+    console.log(dailyBeeData);
+    // await Dataset.pushData(dailyBeeData);
 
     const fileName = `bee/${request.url.slice(24, 34)}.json`;
     // // const fileName = request.url.replace(/[^a-zA-z0-9]/g, '_') + '.json';
