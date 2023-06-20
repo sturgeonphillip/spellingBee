@@ -42,3 +42,28 @@ export async function buildFile(folder, file, dataToWrite) {
 
   return await writeDataToFile(directory, fileName, dataToWrite);
 }
+
+/**
+ * 
+const months = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
+
+const directoryFile = "DIRECTORY";
+const builtFileName = "BUILT-FILE";
+const monthData = months;
+
+buildFile(directoryFile, builtFileName, monthData);
+
+*/

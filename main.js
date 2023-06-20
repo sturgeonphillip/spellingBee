@@ -1,9 +1,11 @@
 import { PlaywrightCrawler, Dataset } from "crawlee";
-import { buildFile } from "./createFile.js";
+import { buildFile } from "./buildFile.js";
 
-import parsePointTotals from "../parsers/pointTotals.js";
-import parseTableObject from "../parsers/tableObject.js";
-import parseTwoLetters from "../parsers/twoLetterList.js";
+import parsePointTotals from "./parsers/pointTotals.js";
+import parseTableObject from "./parsers/tableObject.js";
+import parseTwoLetters from "./parsers/twoLetterList.js";
+
+import { runCrawlerOnCalendar } from "./crawlCalendar.js";
 
 const crawler = new PlaywrightCrawler({
   async requestHandler({ page }) {
@@ -42,11 +44,10 @@ const crawler = new PlaywrightCrawler({
   },
 });
 
-await crawler.run([
-  "https://www.nytimes.com/2023/01/04/crosswords/spelling-bee-forum.html",
-]);
+// await crawler.run([
+//   "https://www.nytimes.com/2023/01/04/crosswords/spelling-bee-forum.html",
+// ]);
 
-const dataset = await Dataset.open();
-const data = await dataset.getData();
-
-await buildFile("january", "04-2023", data.items[0]);
+// const calendar = createCalendar();
+// const dataset = await Dataset.open();
+// const data = await dataset.getData();

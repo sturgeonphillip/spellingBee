@@ -1,32 +1,50 @@
-// create an array of url strings for each day/month
-function createMonth(month, days) {
-  const monthLinks = [];
+const months = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+];
+
+// create
+function createFileUrl(calendar, month, days) {
+  const monthLinks = {};
   let curr = 1;
 
   while (curr <= days) {
     let date = curr < 10 ? `0${curr}` : `${curr}`;
+    const fileName = `${calendar}${date}`;
     const link = `https://www.nytimes.com/2023/${month}/${date}/crosswords/spelling-bee-forum.html`;
-    monthLinks.push(link);
+    // monthLinks.push(link);
+    monthLinks[fileName] = link;
     curr++;
   }
-
   return monthLinks;
 }
 
-// object of arrays - { month: [links] }
-const createCalendar = () => {
+// object of arrays - { month: [{fileName:link}, {fileName:link}, etc] }
+export default function createCalendar(year) {
   const calendar = new Map();
+  const leap = year % 4 === 0 ? 29 : 28;
 
   // loop through 12 months
-  for (let m = 1; m < 13; m++) {
+  for (let i = 0; i < months.length; i++) {
+    const m = i + 1;
     // reformatted to match url
-    const month = m < 10 ? `0${m}` : `${m}`;
+    const numeral = m < 10 ? `0${m}` : `${m}`;
 
     // assign correct number of days per month
     let days;
     switch (m) {
       case 2:
-        days = 28;
+        days = leap;
         break;
       case 4:
       case 6:
@@ -39,15 +57,12 @@ const createCalendar = () => {
     }
 
     // add newly created month of link arrays to calendar
-    calendar.set(month, createMonth(month, days));
+    calendar.set(
+      months[i],
+      // createMonthFile(month, days),
+      createFileUrl(months[i], numeral, days, year)
+    );
   }
 
   return calendar;
-};
-
-const calendar = createCalendar();
-
-// console.log(calendar.get("09"));
-
-//  https://www.nytimes.com/2023/05/30/crosswords/spelling-bee-forum.html =>
-// `https://www.nytimes.com/${year}/${month}/${day}/crosswords/spelling-bee-form.html`;
+}
