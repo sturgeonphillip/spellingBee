@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "src/main.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
     "format": "prettier --ignore-path .gitignore --write \"**/*.{js,jsx}\"",
     "lint": "eslint \"*/*.{js,jsx}\"",
     "lint:debug": "eslint --ignore-path .gitignore --debug \"*/*.{js,jsx}\""
@@ -14,7 +13,7 @@
   "author": "Phillip Sturgeon",
   "license": "MIT",
   "dependencies": {
-    "playwright":"^1.35.1",
+    "playwright": "^1.35.1",
     "crawlee": "^3.3.3"
   },
   "devDependencies": {
