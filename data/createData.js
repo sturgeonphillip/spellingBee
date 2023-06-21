@@ -1,5 +1,6 @@
-import createMonthly from "./createMonthly.js";
 import beeCrawler from "./crawler.js";
+import createMonthly from "./createMonthly.js";
+import buildFile from "./buildFile.js";
 
 const months = [
   "january",
@@ -17,18 +18,17 @@ const months = [
 ];
 
 export default async function createCalendar(year) {
-  const calendar = new Map();
+  const calendar = {};
   const leap = year % 4 === 0 ? 29 : 28;
 
   // loop through 12 months
   for (let i = 0; i < months.length; i++) {
-    const m = i + 1;
-    // reformatted to match url
-    // const numeral = m < 10 ? `0${m}` : `${m}`;
+    const monthAsKey = months[i];
+    const month = i + 1;
 
     // assign correct number of days per month
     let days;
-    switch (m) {
+    switch (month) {
       case 2:
         days = leap;
         break;
@@ -42,22 +42,21 @@ export default async function createCalendar(year) {
         days = 31;
     }
 
-    // use month as key in calendar object
-    calendar[months[i]] = await createMonthly(
-      months[i],
+    const beeData = await createMonthly(
+      monthAsKey,
       year,
-      num,
+      month,
       days,
       beeCrawler
     );
 
-    // build file
+    calendar[monthAsKey] = beeData;
+
+    await buildFile("beeData", monthAsKey, beeData);
   }
 
-  return calendar;
+  return await calendar;
 }
-
-console.log("CALENDAR", createCalendar(2023));
 
 /**
  * january01: {
@@ -67,3 +66,4 @@ console.log("CALENDAR", createCalendar(2023));
  * beeData: {...}
  * }
  */
+createCalendar(2023);

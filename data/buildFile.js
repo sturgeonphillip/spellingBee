@@ -7,7 +7,7 @@ async function writeDataToFile(folder, file, dataToWrite) {
     await stat(folder);
   } catch (error) {
     if (error.code === "ENOENT") {
-      await mkdir(folder);
+      await mkdir(folder, { recursive: true });
     } else {
       console.log("there was an error while writing to the folder.");
       throw error;
@@ -24,6 +24,7 @@ async function writeDataToFile(folder, file, dataToWrite) {
       console.log("there was an error while writing to the file.");
     }
   }
+
   // read content
   const fileContent = await readFile(file, "utf-8");
   const data = JSON.parse(fileContent);
@@ -33,37 +34,13 @@ async function writeDataToFile(folder, file, dataToWrite) {
   await writeFile(file, JSON.stringify(data, null, 2));
 }
 
-// utility to specify location and data to write
-export async function buildFile(folder, file, dataToWrite) {
+async function buildFile(folder, file, data) {
   // month folder
   const directory = folder.toLowerCase();
-  // filename = date and year
+  // file name = date and year
   const fileName = join(directory, `${file}.json`);
 
-  return await writeDataToFile(directory, fileName, dataToWrite);
+  return await writeDataToFile(directory, fileName, data);
 }
 
-/**
- * 
-const months = [
-  "january",
-  "february",
-  "march",
-  "april",
-  "may",
-  "june",
-  "july",
-  "august",
-  "september",
-  "october",
-  "november",
-  "december",
-];
-
-const directoryFile = "DIRECTORY";
-const builtFileName = "BUILT-FILE";
-const monthData = months;
-
-buildFile(directoryFile, builtFileName, monthData);
-
-*/
+export default buildFile;

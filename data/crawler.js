@@ -1,56 +1,57 @@
 import { PlaywrightCrawler, Dataset } from "crawlee";
-// import { buildFile } from "./buildFile.js";
+import { firefox } from "playwright";
 
 import parsePointTotals from "./parsers/pointTotals.js";
 import parseTableObject from "./parsers/tableObject.js";
 import parseTwoLetters from "./parsers/twoLetterList.js";
 
-// import { runCrawlerOnCalendar } from "./crawlCalendar.js";
+async function beeCrawler(url) {
+  const crawler = new PlaywrightCrawler({
+    // slow the amount of requests run at once
+    maxConcurrency: 5,
+    maxRequestsPerCrawl: 5,
+    maxRequestsPerMinute: 100,
 
-const beeCrawler = new PlaywrightCrawler({
-  async requestHandler({ page }) {
-    const allLetters = await page
-      .locator("p.content")
-      .nth(1)
-      .innerText()
-      .trim();
+    async requestHandler({ page }) {
+      const allLetters = await page.locator("p.content").nth(1).innerText();
 
-    const letterArray = allLetters.split(" ");
-    const bold = letterArray[0].trim();
-    const standard = letterArray.slice(1);
+      const letterArray = allLetters.split(" ");
 
-    const words = await page.locator("p.content").nth(2).innerText();
+      const bold = letterArray[0];
+      const standard = letterArray.slice(1);
 
-    const twoLetterList = await page
-      .locator("p.content")
-      .nth(4)
-      .locator("span")
-      .allInnerTexts();
+      const words = await page.locator("p.content").nth(2).innerText();
 
-    const tableData = await page.locator("table").innerText();
+      const twoLetterList = await page
+        .locator("p.content")
+        .nth(4)
+        .locator("span")
+        .allInnerTexts();
 
-    const dailyBeeData = {
-      letters: {
-        allLetters,
-        bold,
-        standard,
-      },
-      points: parsePointTotals(words),
-      twoLetterList: parseTwoLetters(twoLetterList),
-      table: parseTableObject(tableData),
-    };
+      const tableData = await page.locator("table").innerText();
 
-    Dataset.pushData(dailyBeeData);
-  },
-});
+      const dailyBeeData = await {
+        letters: {
+          allLetters,
+          bold,
+          standard,
+        },
+        points: parsePointTotals(words),
+        twoLetterList: parseTwoLetters(twoLetterList),
+        table: parseTableObject(tableData),
+      };
 
-// await crawler.run([
-//   "https://www.nytimes.com/2023/01/04/crosswords/spelling-bee-forum.html",
-// ]);
+      Dataset.pushData(dailyBeeData);
+    },
+  });
+  await crawler.addRequests([url]);
 
-// const calendar = createCalendar();
-// const dataset = await Dataset.open();
-// const data = await dataset.getData();
+  await crawler.run();
 
-// console.log(crawler);
+  const beeData = await Dataset.open();
+  const data = await beeData.getData();
+
+  return data;
+}
+
 export default beeCrawler;
