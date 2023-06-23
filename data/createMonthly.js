@@ -1,4 +1,4 @@
-import buildFile from "./buildFile.js";
+// import buildFile from "./buildFile.js";
 
 async function createMonthly(word, year, num, days, crawler) {
   const monthlyCalendar = {};
@@ -37,9 +37,11 @@ function singleDigit(n) {
   return n < 10 ? `0${n}` : `${n}`;
 }
 
+// const upper = (str) => str.toUpperCase();
+// const april = await createMonthly("april", 2023, 4, 30, upper);
+// console.log(april);
 export default createMonthly;
 
-// const upper = (str) => str.toUpperCase();
 // const calendar = {};
 // const monthKey = "may";
 // const month = 5;

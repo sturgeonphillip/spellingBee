@@ -1,4 +1,4 @@
-function parseTableObject(str) {
+function parseSigmaTable(str) {
   // instantiate new object
   const table = {};
 
@@ -47,4 +47,4 @@ function pairLengthAndQuantity(wordLength, quantityAtLength) {
   return letterObject;
 }
 
-export default parseTableObject;
+export default parseSigmaTable;

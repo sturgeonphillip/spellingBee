@@ -18,7 +18,11 @@
  *
  */
 
-// createData
-//
+// 1. create links to crawl
+// object? array?
+// ex: april = [ https://...2023/04/13/, https://...2023/04/14, etc ]
 
-// check if folders and files exist to hold
+// 2. run a crawler on each of these links
+// scrape the appropriate data and store it to an object
+// use the dataset.push method to store in local memory
+// use fs to write to file

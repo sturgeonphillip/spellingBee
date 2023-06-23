@@ -1,16 +1,14 @@
 import { PlaywrightCrawler, Dataset } from "crawlee";
-import { firefox } from "playwright";
-
-import parsePointTotals from "./parsers/pointTotals.js";
-import parseTableObject from "./parsers/tableObject.js";
-import parseTwoLetters from "./parsers/twoLetterList.js";
+import {
+  parsePointTotals,
+  parseSigmaTable,
+  parseTwoLetterList,
+} from "./parsers/index.js";
 
 async function beeCrawler(url) {
   const crawler = new PlaywrightCrawler({
     // slow the amount of requests run at once
     maxConcurrency: 5,
-    maxRequestsPerCrawl: 5,
-    maxRequestsPerMinute: 100,
 
     async requestHandler({ page }) {
       const allLetters = await page.locator("p.content").nth(1).innerText();
@@ -37,8 +35,8 @@ async function beeCrawler(url) {
           standard,
         },
         points: parsePointTotals(words),
-        twoLetterList: parseTwoLetters(twoLetterList),
-        table: parseTableObject(tableData),
+        twoLetterList: parseTwoLetterList(twoLetterList),
+        table: parseSigmaTable(tableData),
       };
 
       Dataset.pushData(dailyBeeData);

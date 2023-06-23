@@ -42,6 +42,18 @@ export default async function createCalendar(year) {
         days = 31;
     }
 
+    const time = i * 2000;
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        console.log(
+          "getting bee data...",
+          "next interval:",
+          `${time / 1000} seconds`.toString()
+        );
+        resolve();
+      }, time);
+    });
+
     const beeData = await createMonthly(
       monthAsKey,
       year,
@@ -58,12 +70,4 @@ export default async function createCalendar(year) {
   return await calendar;
 }
 
-/**
- * january01: {
- * numeric: "",
- * date: Date(dateString),
- * url: '...',
- * beeData: {...}
- * }
- */
 createCalendar(2023);
