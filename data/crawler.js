@@ -49,7 +49,9 @@ async function beeCrawler(url) {
   const beeData = await Dataset.open();
   const data = await beeData.getData();
 
-  return data;
+  // build data
+
+  beeData.drop();
 }
 
 export default beeCrawler;
