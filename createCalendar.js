@@ -1,3 +1,5 @@
+import beeCrawler from "./data/crawler.js";
+
 const months = [
   "january",
   "february",
@@ -13,7 +15,7 @@ const months = [
   "december",
 ];
 
-export default function createCalendar(year) {
+async function createMonth(year) {
   const calendar = {};
 
   const leap = year % 4 === 0 ? 29 : 28;
@@ -39,27 +41,46 @@ export default function createCalendar(year) {
         days = 31;
     }
 
-    calendar[key] = createMonthly(year, month, days, key);
+    calendar[key] = createDays(year, month, days, key);
+
+    const time = i * 4000;
+    await new Promise((resolve) => {
+      setTimeout(() => {
+        console.log(
+          "getting bee data...",
+          "next interval:",
+          `${time / 1000} seconds`.toString()
+        );
+        resolve();
+      }, time);
+    });
+
+    return calendar;
   }
-
-  return calendar;
 }
-
 // 2023, 6, 23, "june"
-function createMonthly(year, m, d, key) {
+async function createDays(year, m, d, key) {
+  console.log("creating", key, "now!");
   const monthly = {};
   let i = 1;
   const month = singleDigits(m);
   while (i <= d) {
     const day = singleDigits(i);
-    const dateKey = key.concat(day);
+    // const dateKey = key.concat(day);
 
     const date = `${year}/${month}/${day}`;
+    // const file = date.match(/[\d{4}]/g).join("");
+    const file = date.replace(/\//g, "-");
     const url = `https://www.nytimes.com/${date}/crosswords/spelling-bee-forum.html`;
-
-    monthly[dateKey] = { url };
+    const data = await beeCrawler(url);
+    monthly[file] = {
+      url,
+      data,
+    };
     i++;
   }
+  console.log(monthly);
+  console.log("RETURN MONTHLY!");
   return monthly;
 }
 
@@ -68,6 +89,8 @@ function singleDigits(num) {
 }
 
 // const june = createMonthly(2023, 6, 30, "june");
+// const july = createMonthly(2023, 7, 31, "july");
+const twentyTwentyThree = daysPerMonth(2023);
+console.log(twentyTwentyThree);
 
-// const cal = createCalendar(2023);
-// console.log(cal);
+// daysPerMonth;
