@@ -3,7 +3,7 @@ import {
   parsePointTotals,
   parseSigmaTable,
   parseTwoLetterList,
-} from "./parsers/index.js";
+} from "../parsers/index.js";
 
 async function beeCrawler(url) {
   const crawler = new PlaywrightCrawler({

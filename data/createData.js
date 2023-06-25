@@ -59,14 +59,17 @@ export default async function createCalendar(year) {
       year,
       month,
       days,
-      beeCrawler
+      beeCrawler // unnecessary to include this here
     );
 
+    // add month's beeData to all encompassing calendar object
     calendar[monthAsKey] = beeData;
 
+    // write month's beeData to its own file
     await buildFile("beeData", monthAsKey, beeData);
   }
 
+  // return calendar object
   return await calendar;
 }
 

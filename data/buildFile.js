@@ -44,3 +44,16 @@ async function buildFile(folder, file, data) {
 }
 
 export default buildFile;
+const today = new Date().toString();
+
+const y = 2023;
+const m = "06";
+const d = "25";
+const date = `${y}/${m}/${d}`;
+
+console.log(date);
+
+const check = new Date(date).toString();
+console.log(check);
+console.log(today);
+console.log(check <= today);
